@@ -18,24 +18,23 @@ public class Task {
         return date;
     }
 
+    public String getName() {
+        return name;
+    }
+
     public void setname(String s) {
         this.name=s;
     }
 
+    public UUID getId() {
+        return id;
+    }
     public boolean isDone() {
         return done;
     }
 
     public void setDone(boolean isChecked) {
         this.done=isChecked;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public UUID getId() {
-        return id;
     }
 
 }

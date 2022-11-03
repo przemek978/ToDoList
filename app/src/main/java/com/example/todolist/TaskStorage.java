@@ -24,12 +24,24 @@ public class TaskStorage {
         return tasks;
     }
 
+//    public Task getTask(UUID taskId) {
+//        for(int i=0;i<tasks.size();i++){
+//            if(tasks.get(i).getId()==taskId){
+//                return tasks.get(i);
+//            }
+//        }
+//        return null;
+//    }
     public Task getTask(UUID taskId) {
-        for(int i=0;i<tasks.size();i++){
-            if(tasks.get(i).getId()==taskId){
-                return tasks.get(i);
+        for(Task task:tasks){
+            if(task.getId().equals(taskId)) {
+                return task;
             }
         }
+        //throw new IllegalArgumentException(String.format("There is no task for id '%s'", taskId));
+        //return new Task();
         return null;
     }
+
+
 }

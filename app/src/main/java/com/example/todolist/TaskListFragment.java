@@ -1,6 +1,5 @@
 package com.example.todolist;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -18,7 +17,7 @@ import java.util.List;
 
 public class TaskListFragment extends Fragment {
 
-    public static final String KEY_EXTRA_TASK_ID ="com.example.todolist.taskId" ;
+    public static final String KEY_EXTRA_TASK_ID ="KEY_EXTRA_TASK_ID" ;
     private RecyclerView recyclerView;
     TaskAdapter adapter;
 
@@ -42,6 +41,9 @@ public class TaskListFragment extends Fragment {
             adapter=new TaskAdapter(tasks);
             recyclerView.setAdapter(adapter);
         }
+        else {
+            adapter.notifyDataSetChanged();
+        }
     }
     private class TaskHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
@@ -50,9 +52,9 @@ public class TaskListFragment extends Fragment {
         private Task task;
 
         public TaskHolder(LayoutInflater inflater, ViewGroup parent) {
-            super(inflater.inflate(R.layout.list_item_task,parent));
+            super(inflater.inflate(R.layout.list_item_task,parent,false));
             itemView.setOnClickListener(this);
-            
+
             nameTextView=itemView.findViewById(R.id.task_item_name);
             dateTextView=itemView.findViewById(R.id.task_item_date);
         }
