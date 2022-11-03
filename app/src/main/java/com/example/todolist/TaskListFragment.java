@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -49,6 +50,7 @@ public class TaskListFragment extends Fragment {
 
         private TextView nameTextView;
         private TextView dateTextView;
+        private CheckBox doneCheckBox;
         private Task task;
 
         public TaskHolder(LayoutInflater inflater, ViewGroup parent) {
@@ -57,16 +59,21 @@ public class TaskListFragment extends Fragment {
 
             nameTextView=itemView.findViewById(R.id.task_item_name);
             dateTextView=itemView.findViewById(R.id.task_item_date);
+            doneCheckBox=itemView.findViewById(R.id.task_item_done);
         }
         public void bind(Task task){
             this.task=task;
             nameTextView.setText(task.getName());
             dateTextView.setText(task.getDate().toString());
+            doneCheckBox.setOnCheckedChangeListener((buttonView, isChecked) ->{task.setDone(isChecked);});
+            doneCheckBox.setChecked(task.isDone());
+
         }
         @Override
         public void onClick(View v) {
             Intent intent = new Intent(getActivity(),MainActivity.class);
             intent.putExtra(KEY_EXTRA_TASK_ID,task.getId());
+            doneCheckBox.setOnCheckedChangeListener((buttonView, isChecked) ->{task.setDone(isChecked);});
             startActivity(intent);
         }
     }

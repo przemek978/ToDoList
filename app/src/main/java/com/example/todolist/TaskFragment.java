@@ -22,7 +22,7 @@ public class TaskFragment extends Fragment {
     private Task task;
     private TextView nameField;
     private Button dateButton;
-    CheckBox doneCheckBox;
+    private CheckBox doneCheckBox;
     private View view;
     private final static String ARG_TASK_ID="ARG_TASK_ID";
 
@@ -35,13 +35,7 @@ public class TaskFragment extends Fragment {
         UUID taskId=(UUID) getArguments().getSerializable(ARG_TASK_ID);
         task=TaskStorage.getInstance().getTask(taskId);
     }
-    public static TaskFragment newInstance(UUID taskId){
-        Bundle bundle=new Bundle();
-        bundle.putSerializable(ARG_TASK_ID,taskId);
-        TaskFragment taskFragment = new TaskFragment();
-        taskFragment.setArguments(bundle);
-        return taskFragment;
-    }
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.fragment_task, container, false);
@@ -59,7 +53,7 @@ public class TaskFragment extends Fragment {
 
                     @Override
                     public void onTextChanged(CharSequence s, int start, int before, int count) {
-                        task.setname(s.toString());
+                        task.setName(s.toString());
                     }
 
                     @Override
@@ -67,7 +61,9 @@ public class TaskFragment extends Fragment {
 
                     }
                 });
+                nameField.setText(task.getName());
             }
+
             if(dateButton != null){
                 dateButton.setText(task.getDate().toString());
                 dateButton.setEnabled(false);
@@ -75,23 +71,17 @@ public class TaskFragment extends Fragment {
 
             if(doneCheckBox != null){
                 doneCheckBox.setChecked(task.isDone());
-                doneCheckBox.setOnCheckedChangeListener((buttonView, isChecked) ->{
-                    task.setDone(isChecked);
-                });
+                doneCheckBox.setOnCheckedChangeListener((buttonView, isChecked) ->{task.setDone(isChecked);});
             }
         }
-//        dateButton.setText(task.getDate().toString());
-//        dateButton.setEnabled(false);
-//
-//        doneCheckBox.setChecked(task.isDone());
-//        doneCheckBox.setOnCheckedChangeListener((buttonView,isChecked)-> task.setDone(isChecked));
-        //nameField.setText(task.getName());
-        //oneCheckBox.setChecked(task.isDone());
         return view;
     }
-
-
-
-
+    public static TaskFragment newInstance(UUID taskId){
+        Bundle bundle=new Bundle();
+        bundle.putSerializable(ARG_TASK_ID,taskId);
+        TaskFragment taskFragment = new TaskFragment();
+        taskFragment.setArguments(bundle);
+        return taskFragment;
+    }
 }
 

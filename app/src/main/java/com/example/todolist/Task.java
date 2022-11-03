@@ -11,7 +11,7 @@ public class Task {
 
     public Task(){
         id=UUID.randomUUID();
-        date=new Date();
+        date = new Date();
     }
 
     public Date getDate() {
@@ -22,7 +22,7 @@ public class Task {
         return name;
     }
 
-    public void setname(String s) {
+    public void setName(String s) {
         this.name=s;
     }
 
